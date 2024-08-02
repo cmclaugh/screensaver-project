@@ -40,13 +40,13 @@ impl LifeSimulator {
                 // loops over the three neighborhood rows
                 for neighbor_row in [previous_row, row, next_row] {
                     // gets references to left, right, and center cells with wraparound
-                    let left_cell = &neighbor_row[if cell_index == 0 {
+                    let left_cell = neighbor_row[if cell_index == 0 {
                         self.width - 1
                     } else {
                         cell_index - 1
                     }];
-                    let center_cell = &neighbor_row[cell_index];
-                    let right_cell = &neighbor_row[if cell_index == self.width - 1 {
+                    let center_cell = neighbor_row[cell_index];
+                    let right_cell = neighbor_row[if cell_index == self.width - 1 {
                         0
                     } else {
                         cell_index + 1
@@ -54,7 +54,7 @@ impl LifeSimulator {
 
                     // adds cells to tally (if alive)
                     for neighbor_cell in [left_cell, center_cell, right_cell] {
-                        if *neighbor_cell {
+                        if neighbor_cell {
                             life_counter += 1
                         };
                     }

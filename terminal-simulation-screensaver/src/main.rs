@@ -53,6 +53,9 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>) -> Result<(), Box<dyn Error>>
                         _ => (),
                     }
                 }
+                Event::Resize(new_width, new_height) => {
+                    simulator.resize(new_height as usize, new_width as usize);
+                }
                 _ => (),
             }
         }

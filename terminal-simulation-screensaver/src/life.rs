@@ -98,6 +98,17 @@ impl LifeSimulator {
             width,
         }
     }
+
+    pub fn resize(&mut self, new_height: usize, new_width: usize) {
+        let blank_row = vec![false; new_width];
+        self.board.resize(new_height, blank_row);
+        for row in self.board.iter_mut() {
+            row.resize(new_width, false);
+        }
+
+        self.height = new_height;
+        self.width = new_width;
+    }
 }
 
 impl Widget for &LifeSimulator {

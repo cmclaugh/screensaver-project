@@ -12,7 +12,7 @@ pub struct LifeSimulator {
 }
 
 impl LifeSimulator {
-    // increments the game of life one step
+    // increments the game of life one generation
     pub fn update(&mut self) {
         let mut to_return = Vec::new();
         for (row_index, row) in self.board.iter().enumerate() {
@@ -58,7 +58,11 @@ impl LifeSimulator {
             }
             board.push(new_row);
         }
-        LifeSimulator { board, height, width }
+        LifeSimulator {
+            board,
+            height,
+            width,
+        }
     }
 }
 
@@ -74,10 +78,13 @@ impl Widget for &LifeSimulator {
                 // sets any terminal cells to white if their corresponding life cell
                 // is "alive"
                 //
-                // NOTE: The cast of height and width to u16 will cause a bug if the 
-                // board is over 65,535 cells tall or wide, but such boards shouldn't 
+                // NOTE: The cast of height and width to u16 will cause a bug if the
+                // board is over 65,535 cells tall or wide, but such boards shouldn't
                 // be rendered anyway. They aren't in this project.
-                if y < (self.height as u16) && x < (self.width as u16) && self.board[y as usize][x as usize] {
+                if y < (self.height as u16)
+                    && x < (self.width as u16)
+                    && self.board[y as usize][x as usize]
+                {
                     cell.set_bg(Color::White);
                 }
             }
